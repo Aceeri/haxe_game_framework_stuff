@@ -1,8 +1,11 @@
 package;
 
+import openfl.Vector;
+
 class KeyInput {
-  public static keys : Vector<Bool>;
-  public static Initialize() {
-    keys = new Vector<Bool>(200);
+  public static var keys: Vector<Bool>;
+
+  public static function initialize() {
+    KeyInput.keys = new Vector<Bool>(200);
   }
-};
+}

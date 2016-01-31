@@ -14,7 +14,7 @@ import ui.Console;
 class Main extends Sprite {
   var console: Console;
   var fps: FPS;
-  var prevTime: Int;
+  var prev_time: Int;
 
   public function new() {
     super();
@@ -34,14 +34,12 @@ class Main extends Sprite {
       }
     #end
 
-    for (i in 0...30) trace(i);
-
     init();
   }
 
   public function init() {
-    Key_Input.Initialize();
-    prevTime = lime.system.System.getTimer();
+    KeyInput.initialize();
+    prev_time = lime.system.System.getTimer();
 
     var bitmap = new Bitmap(Assets.getBitmapData("assets/openfl.png"));
     bitmap.x = (stage.stageWidth - bitmap.width) / 2;
@@ -59,21 +57,21 @@ class Main extends Sprite {
   }
 
   private function Key_Down(event: KeyboardEvent):Void {
-    keys[Key_Input.keys[event.keyCode]] = true;
-
-    if (!keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
+    if (!KeyInput.keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
       console.visible = !console.visible;
     }
+    
+    KeyInput.keys[event.keyCode] = true;
   }
 
   private function Key_Up(event: KeyboardEvent):Void {
-    keys[event.keyCode] = false;
+    KeyInput.keys[event.keyCode] = false;
   }
 
   private function Update(event: Event):Void {
-    var currentTime = lime.system.System.getTimer();
-    var delta = (currentTime - prevTime) / 1000.0;
-    prevTime = currentTime;
+    var current_time = lime.system.System.getTimer();
+    var delta = (current_time - prev_time) / 1000.0;
+    prev_time = current_time;
 
     var speed = 50;
 

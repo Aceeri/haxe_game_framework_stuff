@@ -6,7 +6,7 @@ import openfl.events.MouseEvent;
 
 class Console extends UserInterface {
   public var lines: Array<TextField>;
-  public var maxLines = 500;
+  public var max_lines = 500;
   public var format: TextFormat;
   public var scroll: Float;
   private var speed: Float;
@@ -21,8 +21,8 @@ class Console extends UserInterface {
 
     size.x = 350;
     size.y = 150;
-    backgroundColor = 0x0F0F0F;
-    backgroundAlpha = 0.5;
+    background_color = 0x0F0F0F;
+    background_alpha = 0.5;
     scroll = 0.0;
     speed = 7.0;
     bounds = 3.0;
@@ -50,15 +50,15 @@ class Console extends UserInterface {
     }
 
     if (!match) {
-      var newLine = new TextField();
-      newLine.textColor = 0xF0F0F0;
-      newLine.width = size.x;
-      newLine.text = msg;
-      newLine.setTextFormat(format);
-      addChild(newLine);
-      lines.insert(0, newLine);
+      var new_line = new TextField();
+      new_line.textColor = 0xF0F0F0;
+      new_line.width = size.x;
+      new_line.text = msg;
+      new_line.setTextFormat(format);
+      addChild(new_line);
+      lines.insert(0, new_line);
 
-      if (lines.length > maxLines) {
+      if (lines.length > max_lines) {
         removeChild(lines.pop());
       }
     }

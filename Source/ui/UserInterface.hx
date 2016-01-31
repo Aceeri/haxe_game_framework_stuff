@@ -8,16 +8,16 @@ import openfl.events.MouseEvent;
 
 class UserInterface extends Sprite {
   private var shape: Shape;
-  public var backgroundColor: Int;
-  public var backgroundAlpha: Float;
+  public var background_color: Int;
+  public var background_alpha: Float;
   public var size: Point;
   public var resizable: Bool;
 
   public function new() {
     super();
 
-    backgroundColor = 0xFFFFFF;
-    backgroundAlpha = 1.0;
+    background_color = 0xFFFFFF;
+    background_alpha = 1.0;
     size = new Point(100, 100);
     resizable = false;
 
@@ -28,7 +28,7 @@ class UserInterface extends Sprite {
   public function update(delta: Float) {
     scrollRect = new Rectangle(0, 0, size.x, size.y);
     shape.graphics.clear();
-    shape.graphics.beginFill(backgroundColor, backgroundAlpha);
+    shape.graphics.beginFill(background_color, background_alpha);
     shape.graphics.drawRect(0, 0, size.x, size.y);
     shape.graphics.endFill();
   }

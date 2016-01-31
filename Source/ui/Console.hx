@@ -5,7 +5,9 @@ import openfl.text.TextFormat;
 import openfl.events.MouseEvent;
 
 class Console extends UserInterface {
-  public var lines: Array<TextField>;
+  public var lines: Array<TextField> = [];
+  private var text: Array<String> = [];
+  private var count: Array<Int> = [];
   public var max_lines = 500;
   public var format: TextFormat;
   public var scroll: Float;
@@ -14,52 +16,52 @@ class Console extends UserInterface {
 
   public function new() {
     super();
-    lines = [];
 
-    format = new TextFormat();
-    format.size = 15;
+    format = new TextFormat(Fonts.square.fontName, 16);
+
 
     size.x = 350;
     size.y = 150;
-    background_color = 0x0F0F0F;
-    background_alpha = 0.5;
+    background_color = 0x2D2D30;
+    background_alpha = 0.9;
     scroll = 0.0;
     speed = 7.0;
     bounds = 3.0;
 
     visible = false;
 
+    trace("square: " + Fonts.square.fontName);
+
     addEventListener(MouseEvent.MOUSE_WHEEL, wheel);
   }
 
-  public function log(msg: String):Void {
+  public function log(msg: String, ?color: String):Void {
     var match = false;
 
-    var r = ~/\(?(\d+)?\)?\s?(.+)/g;
-    if (lines[0] != null) {
-      r.match(lines[0].text);
-      var count = 1;
-      if (r.matched(1) != null) {
-        count = Std.parseInt(r.matched(1));
-      }
-
-      if (r.matched(2) == msg) {
-        lines[0].text = "(" + (count + 1) + ") " + msg;
-        match = true;
-      }
+    if (color == null) {
+      color = "#569ED8";
     }
 
-    if (!match) {
+    if (text[0] != null && text[0] == msg) {
+      count[0]++;
+      lines[0].htmlText = '<font color="#00FFFF">[' + count[0] + ']</font><font color="' + color + '"> ' + text[0] + '</font>';
+    } else {
       var new_line = new TextField();
-      new_line.textColor = 0xF0F0F0;
+      new_line.antiAliasType = "advanced";
       new_line.width = size.x;
       new_line.text = msg;
-      new_line.setTextFormat(format);
+      new_line.defaultTextFormat = format;
+      //new_line.embedFonts = true;
+      new_line.htmlText = '<font color="' + color + '>' + msg + '</font>';
       addChild(new_line);
       lines.insert(0, new_line);
+      count.insert(0, 1);
+      text.insert(0, msg);
 
       if (lines.length > max_lines) {
         removeChild(lines.pop());
+        count.pop();
+        text.pop();
       }
     }
 
@@ -76,8 +78,14 @@ class Console extends UserInterface {
 
   private function wheel(event: MouseEvent) {
     scroll += speed * event.delta;
+    trace(event.delta);
 
-    if (scroll < 0.0) {
+    var total_y = 0.0;
+    for (line in lines) {
+      total_y += line.getTextFormat().size;
+    }
+
+    if (scroll < 0.0 || total_y <= size.y) {
       scroll = 0.0;
     } else if (scroll > lines.length * format.size + bounds - size.y) {
       scroll = lines.length * format.size + bounds - size.y;

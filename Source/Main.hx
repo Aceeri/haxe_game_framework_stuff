@@ -51,24 +51,24 @@ class Main extends Sprite {
 
     addChild(console);
 
-    stage.addEventListener(KeyboardEvent.KEY_DOWN, Key_Down);
-    stage.addEventListener(KeyboardEvent.KEY_UP, Key_Up);
-    stage.addEventListener(Event.ENTER_FRAME, Update);
+    stage.addEventListener(KeyboardEvent.KEY_DOWN, key_down);
+    stage.addEventListener(KeyboardEvent.KEY_UP, key_up);
+    stage.addEventListener(Event.ENTER_FRAME, update);
   }
 
-  private function Key_Down(event: KeyboardEvent):Void {
+  private function key_down(event: KeyboardEvent):Void {
     if (!KeyInput.keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
       console.visible = !console.visible;
     }
-    
+
     KeyInput.keys[event.keyCode] = true;
   }
 
-  private function Key_Up(event: KeyboardEvent):Void {
+  private function key_up(event: KeyboardEvent):Void {
     KeyInput.keys[event.keyCode] = false;
   }
 
-  private function Update(event: Event):Void {
+  private function update(event: Event):Void {
     var current_time = lime.system.System.getTimer();
     var delta = (current_time - prev_time) / 1000.0;
     prev_time = current_time;

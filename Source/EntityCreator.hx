@@ -16,15 +16,29 @@ package EntityCreator {
         new Health,
         new Inventory
       );
+      engine.addEntity(player);
       return player;
     }
 
-    public function Create_Mob(type:Mob::Type) : Entity {
-      switch ( type ) {
-        case Mob::Type::Enemy:
-
+    public function Create_Mob() : Entity {
+      var mobDef : MobDefinition = mobDefs.R_Choice();
+      var mob : Entity = new Entity();
+      mob.add(new Array(
+        new Renderable( ... ),
+        new Position(),
+        new Actor,
+        new Statistics(mobDef.health, mobDef.strength));
+      mob.add(new Inventory(mobDef.inventory));
+      switch ( mobDefs.AI_Type ) {
+        case Mob::Type::Zombie:
+          mob.add(new ZombieAI());
+        break;
+        case Mob::Type::Human:
+          mob.add(new HumanAI());
         break;
       }
+      engine.addEntity(mob);
+      return mob;
     }
 
 

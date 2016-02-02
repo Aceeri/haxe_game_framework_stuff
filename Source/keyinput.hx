@@ -1,11 +1,11 @@
-package;
+package KeyInput {
+  import openfl.Vector;
 
-import openfl.Vector;
+  class KeyInput {
+    public static var keys: Vector<Bool>;
 
-class KeyInput {
-  public static var keys: Vector<Bool>;
-
-  public static function initialize() {
-    KeyInput.keys = new Vector<Bool>(200);
+    public static function initialize() {
+      KeyInput.keys = new Vector<Bool>(200);
+    }
   }
-}
+};

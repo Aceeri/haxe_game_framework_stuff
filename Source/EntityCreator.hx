@@ -8,14 +8,6 @@ package EntityCreator {
 
     public function Create_Player():Entity {
       var player : Entity = new Entity(Entities.PLAYER);
-      player.add(new Array(
-        new Renderable( ... ),
-        new PlayerControls(),
-        new Actor,
-        new CameraFocus,
-        new Health,
-        new Inventory
-      );
       engine.addEntity(player);
       return player;
     }

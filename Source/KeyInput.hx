@@ -5,7 +5,7 @@ package KeyInput {
     public static var keys: Vector<Bool>,
                       mouse: Vector<Bool>;
     public static var mouseX: Int,
-                      mouseY: int;
+                      mouseY: Int;
 
     public enum MouseButtons {
       left, right, middle

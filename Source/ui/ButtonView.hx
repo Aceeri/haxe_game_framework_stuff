@@ -10,9 +10,9 @@ public class ButtonView extends Shape {
     highlight  :Int = 1;
     clicked    :Int = 2;
   }
-  private var state       : State;
-  private static colour : Vector<Int>,
-                 shapes : Vector<Shape>;
+  private var state: State;
+  private static colour: Vector<Int>;
+  private static shapes: Vector<Shape>;
 
   public function new(width:int, height:int) {
     // -- static inits --

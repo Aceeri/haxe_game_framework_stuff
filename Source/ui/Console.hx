@@ -77,6 +77,12 @@ class Console extends UserInterface {
   }
 
   private function wheel(event: MouseEvent) {
+    if (event.delta > 3) {
+      event.delta = 3;
+    } else if (event.delta < -3) {
+      event.delta = -3;
+    }
+
     scroll += speed * event.delta;
     trace(event.delta);
 

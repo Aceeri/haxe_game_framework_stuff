@@ -1,13 +1,11 @@
-package GameManager {
-  import ash.core.Engine;
+package;
 
-  public class GameManager {
-  // private:
-    private var engine : Engine;
+import ash.core.Engine;
 
-    public static function startGame ( event : Event ) : void {
+class GameManager {
+  private var engine: Engine;
+
+  public static function start_game(event: Event): Void {
       
-    }
-  };
-
-};
+  }
+}

@@ -38,7 +38,7 @@ class Main extends Sprite {
   }
 
   public function init() {
-    KeyInput.initialize();
+    Input.initialize();
     prev_time = lime.system.System.getTimer();
 
     var bitmap = new Bitmap(Assets.getBitmapData("assets/openfl.png"));
@@ -57,15 +57,15 @@ class Main extends Sprite {
   }
 
   private function key_down(event: KeyboardEvent):Void {
-    if (!KeyInput.keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
+    if (!Input.keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
       console.visible = !console.visible;
     }
 
-    KeyInput.keys[event.keyCode] = true;
+    Input.keys[event.keyCode] = true;
   }
 
   private function key_up(event: KeyboardEvent):Void {
-    KeyInput.keys[event.keyCode] = false;
+    Input.keys[event.keyCode] = false;
   }
 
   private function update(event: Event):Void {

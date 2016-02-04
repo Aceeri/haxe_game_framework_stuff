@@ -7,7 +7,7 @@ import openfl.geom.Rectangle;
 import openfl.events.MouseEvent;
 
 class UserInterface extends Sprite {
-  private var shape: Shape;
+  private var _shape: Shape;
   public var background_color: Int;
   public var background_alpha: Float;
   public var size: Point;
@@ -21,15 +21,15 @@ class UserInterface extends Sprite {
     size = new Point(100, 100);
     resizable = false;
 
-    shape = new Shape();
-    addChild(shape);
+    _shape = new Shape();
+    addChild(_shape);
   }
 
   public function update(delta: Float) {
     scrollRect = new Rectangle(0, 0, size.x, size.y);
-    shape.graphics.clear();
-    shape.graphics.beginFill(background_color, background_alpha);
-    shape.graphics.drawRect(0, 0, size.x, size.y);
-    shape.graphics.endFill();
+    _shape.graphics.clear();
+    _shape.graphics.beginFill(background_color, background_alpha);
+    _shape.graphics.drawRect(0, 0, size.x, size.y);
+    _shape.graphics.endFill();
   }
 }

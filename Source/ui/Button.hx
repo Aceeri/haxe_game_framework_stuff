@@ -17,11 +17,21 @@ class Button {
   }
 
   public function update() {
-    pressed = Input.mouse[Input.MouseButtons.left];
-    if (!pressed) return;
+    var pressed_t = Input.mouse[Input.MouseButtons.left];
     var mx: Int = Input.mouseX,
         my: Int = Input.mouseY;
-    pressed = mx > x && mx < (x + width) &&
-              my > y && my < (y + width);
+    var in_range:Bool = mx > x && mx < (x + width) &&
+                        my > y && my < (y + width);
+    if ( !pressed && pressed_t && in_range ) // start click on button
+      pressed = true;
+    if ( pressed && !pressed_t && in_range ) // finish click on button
+      activate_button();
+    if ( !pressed_t ) // no longer clicking on button, note above will fall
+      pressed = false; // into this so order of if-statements matter.
+  }
+  
+  public private function activate_button() {
+    // send Activate signal
+    // how?
   }
 };

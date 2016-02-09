@@ -10,8 +10,8 @@ class Button {
              y: Int;
 
   public function new(_x: Int, _y: Int, _width: Int, _height: Int) {
-    Width = _width;
-    Height = _height;
+    width = _width;
+    height = _height;
     x = _x;
     y = _y;
   }

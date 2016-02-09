@@ -3,6 +3,7 @@ package;
 import haxe.Timer;
 import openfl.display.Bitmap;
 import openfl.display.BitmapData;
+import openfl.display.DisplayObject;
 import openfl.Assets;
 import openfl.display.FPS;
 import openfl.display.Sprite;
@@ -41,6 +42,7 @@ class Main extends Sprite {
 
   public function init() {
     Input.initialize();
+
     prev_time = lime.system.System.getTimer();
 
     var bitmap = new Bitmap(Assets.getBitmapData("assets/openfl.png"));
@@ -55,18 +57,22 @@ class Main extends Sprite {
     button.addEventListener(MouseEvent.CLICK, function(event: MouseEvent) {
       trace("left clicked");
     });
-    addChild(button);
+    Interface.add_interface(button);
 
     stage.addEventListener(KeyboardEvent.KEY_DOWN, key_down);
     stage.addEventListener(KeyboardEvent.KEY_UP, key_up);
     stage.addEventListener(Event.ENTER_FRAME, update);
 
-    addChild(console);
+    Interface.add_interface(console);
+
+    Interface.add_to(this);
   }
 
   private function key_down(event: KeyboardEvent):Void {
-    if (!Input.keys[event.keyCode] && event.keyCode == Keyboard.BACKQUOTE) {
-      console.visible = !console.visible;
+    if (!Input.keys[event.keyCode]) {
+      if (event.keyCode == Keyboard.BACKQUOTE) {
+        console.visible = !console.visible;
+      }
     }
 
     Input.keys[event.keyCode] = true;

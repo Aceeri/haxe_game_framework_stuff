@@ -55,7 +55,7 @@ class Main extends Sprite {
 
     button = new Button();
     button.addEventListener(MouseEvent.CLICK, function(event: MouseEvent) {
-      trace("left clicked");
+      trace("left clicked " + fps);
     });
     Interface.add_interface(button);
 

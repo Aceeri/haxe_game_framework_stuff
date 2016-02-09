@@ -29,5 +29,7 @@ class Button extends UserInterface {
 
   }
   
-  public private function activate_button() : Void;
-};
+  private function activate_button() {
+
+  }
+}

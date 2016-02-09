@@ -20,11 +20,11 @@ public class ButtonView extends Shape {
       colour = [0x5A607A, 0x506030, 0x500000];
     }
     // -- constructor --
-    setState(State.unhighlight);
+    set_state(State.unhighlight);
   };
 
 
-  public function setState(s:State) : Void {
+  public function set_state(s:State) : Void {
     state = s;
 
     graphics.clear();
@@ -32,5 +32,5 @@ public class ButtonView extends Shape {
     graphics.drawRect(0, 0, width, height);
     graphics.endFill();
   }
-  public function retState() : State { return state; }
+  public function ret_state() : State { return state; }
 };

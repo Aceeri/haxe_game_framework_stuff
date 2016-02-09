@@ -30,8 +30,5 @@ class Button {
       pressed = false; // into this so order of if-statements matter.
   }
   
-  public private function activate_button() {
-    // send Activate signal
-    // how?
-  }
+  public private function activate_button() : Void;
 };

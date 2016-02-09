@@ -6,15 +6,12 @@ import openfl.events.MouseEvent;
 
 class Button extends UserInterface {
 
-  public function new(_x: Int, _y: Int, _width: Int, _height: Int) {
+  public function new() {
     super();
-    width = _width;
-    height = _height;
-    x = _x;
-    y = _y;
   }
 
-  public function update() {
+  public override function update(delta: Float) {
+    super.update(delta);
     /*var pressed_t = Input.mouse[Input.MouseButtons.left];
     var mx: Int = Input.mouseX,
         my: Int = Input.mouseY;

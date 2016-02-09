@@ -10,9 +10,11 @@ import openfl.events.*;
 import openfl.ui.Keyboard;
 
 import ui.Console;
+import ui.Button;
 
 class Main extends Sprite {
   var console: Console;
+  var button: Button;
   var fps: FPS;
   var prev_time: Int;
 
@@ -49,11 +51,17 @@ class Main extends Sprite {
     fps = new FPS();
     addChild(fps);
 
-    addChild(console);
+    button = new Button();
+    button.addEventListener(MouseEvent.CLICK, function(event: MouseEvent) {
+      trace("left clicked");
+    });
+    addChild(button);
 
     stage.addEventListener(KeyboardEvent.KEY_DOWN, key_down);
     stage.addEventListener(KeyboardEvent.KEY_UP, key_up);
     stage.addEventListener(Event.ENTER_FRAME, update);
+
+    addChild(console);
   }
 
   private function key_down(event: KeyboardEvent):Void {
@@ -76,5 +84,6 @@ class Main extends Sprite {
     var speed = 50;
 
     console.update(delta);
+    button.update(delta);
   }
 }

@@ -13,24 +13,27 @@ class Console extends UserInterface {
   public var scroll: Float;
   private var speed: Float;
   private var bounds: Float;
+  private var separation: Float;
 
   public function new() {
     super();
 
-    format = new TextFormat(Fonts.square.fontName, 16);
+    name = "Console";
 
+    format = new TextFormat(Fonts.bitter.fontName, 16);
 
-    size.x = 350;
+    size.x = 500;
     size.y = 150;
     background_color = 0x2D2D30;
     background_alpha = 0.9;
     scroll = 0.0;
     speed = 7.0;
-    bounds = 3.0;
+    bounds = 8.0;
+    separation = 1.1;
 
     visible = false;
 
-    trace("square: " + Fonts.square.fontName);
+    trace("bitter: " + Fonts.bitter.fontName);
 
     addEventListener(MouseEvent.MOUSE_WHEEL, wheel);
   }
@@ -72,7 +75,7 @@ class Console extends UserInterface {
     super.update(delta);
 
     for (index in 0...lines.length) {
-      lines[index].y = (-format.size*index) + size.y - format.size - bounds + scroll;
+      lines[index].y = (-format.size * separation * index) + size.y - format.size - bounds + scroll;
     }
   }
 
@@ -93,8 +96,8 @@ class Console extends UserInterface {
 
     if (scroll < 0.0 || total_y <= size.y) {
       scroll = 0.0;
-    } else if (scroll > lines.length * format.size + bounds - size.y) {
-      scroll = lines.length * format.size + bounds - size.y;
+    } else if (scroll > lines.length * format.size * separation + bounds - size.y) {
+      scroll = lines.length * format.size * separation + bounds - size.y;
     }
   }
 }

@@ -4,32 +4,46 @@ import components.AABBCollision;
 import components.Position;
 import openfl.Vector;
 import utils.CollisionInfo;
+import utils.Vector2;
 
 // TODO:
-// implement all functions
+// Build_Transform
+// R_Transformed_Vertices
+// New
+// test that it works
 class PolyCollision {
 // private:
-  private var vertices: Array<Vector>,
-              vertices_transform: Array<Vector>;
+  private var vertices: Array<Vector2>,
+              vertices_transform: Array<Vector2>,
+              transformed: Bool;
   private function Build_Transform() : Void {}
 // public:
   public function new() {} /* empty poly*/
-  public funciton new(verts: Array<Vector>, off: Vector) {}
+  public funciton new(verts: Array<Vector2>, off: Vector2) {}
 
   // -- ret/set --
-  public function Set_Vertices(verts:Array<Vector>, reorder:Bool = 1) {
-
+  public function Set_Vertices(verts:Array<Vector2>, reorder:Bool = 1) {
+    vertices = verts;
+    if ( reorder ) {
+      Order_Vertices(verts);
+    }
+    Build_Transform();
   }
-  public function R_Vertices(): Array<Vector> { return vertices; }
-  public function R_Transformed_Vertices(force:Bool = 0);
+  public function R_Vertices(): Array<Vector2> { return vertices; }
+  public function R_Transformed_Vertices(force:Bool = 0) {s
+    if ( transformed || force ) {
+      transformed = 0;
+      // todo ...
+    }
+  }
 
   // -- utility --
   // Returns CollisionInfo based off passed in poly and velocity.
   // Velocity only takes a part in tracking if it will collide,
-  // and if it will the translation vector.
-  CollisionInfo collide(poly: PolyCollision, velocity: Vector) {
+  // and if it will the translation Vector2.
+  CollisionInfo collide(poly: PolyCollision, velocity: Vector2) {
     var min_dist: Float = 10000000000000;
-    var trans_vec: Vector = Vector(0, 0);
+    var trans_vec: Vector2 = Vector2(0, 0);
 
     var vertsA = R_Transformed_Vertices(),
         vertsB = poly.R_Transformed_Vertices();
@@ -41,7 +55,7 @@ class PolyCollision {
     for ( var i : Int = 0; i != vertsA.length() + vertsB.length(); ++ i ) {
       var vA: Bool = (i<vertsA.length());
       // get the axis from the edge
-      var axis: Vector = Get_Axis((vA?vertsA:vertsB),
+      var axis: Vector2 = Get_Axis((vA?vertsA:vertsB),
                                   (vA?i: i - vertsA.size()));
       // project onto axis
       var minA: Float, minB: Float, maxA: Float, maxB: Float;
@@ -79,19 +93,20 @@ class PolyCollision {
       ci.translation = trans_vec * min_dist;
     return ci;
   }
-  CollisionInfo Collide(aabb: AABBCollision, velocity: Vector) {
+  CollisionInfo Collide(aabb: AABBCollision, velocity: Vector2) {
+    // todo ...
   }
 
 // private utility:
-  private function Ret_Axis(verts:Array<Vector>, i:Int) {
-    var vec1: Vector = verts[i],
-        vec2: Vector = verts[(i+1)%verts.length()];
+  private function Ret_Axis(verts:Array<Vector2>, i:Int) {
+    var vec1: Vector2 = verts[i],
+        vec2: Vector2 = verts[(i+1)%verts.length()];
 
-    var axis: Vector = Vector( -(vec2.y - vec1.y), vec2.x - vec1.x );
+    var axis: Vector2 = Vector2( -(vec2.y - vec1.y), vec2.x - vec1.x );
     axis.Normalize();
     return axis;
   }
-  private function Project_Poly(axis:Vector, poly:Array<Vector>,
+  private function Project_Poly(axis:Vector2, poly:Array<Vector2>,
                                 min:Float, max:Float) {
     min = axis.dot_product(
   }
@@ -102,12 +117,12 @@ class PolyCollision {
   }
   // orders vertices according to centroid algorithm, will
   // place ordered vertices back into verts
-  private function Order_Vertices(verts:Array<utils.Vector2>):Void {
+  private function Order_Vertices(verts:Array<Vector2>):Void {
     // get centroid, same time preparing to calculate angle of verts
     var centx: Float = 0, cent: Float = 0;
 
     typedef Pair<A, B> = {a: A, b: B };
-    Array<Float, utils.Vector2> va;
+    Array<Float, Vector2> va;
     for ( var i : Int = 0; i != verts.length(); ++ i ) {
       centx += i.x;
       centy += i.y;

@@ -1,13 +1,13 @@
 package utils;
 
-import openfl.Vector;
+import utils.Vector2;
 
 class CollisionInfo {
 // public:
   public var collision: Bool,
              will_collide: Bool;
-  public var translation: Vector,
-             projection : Vector;
+  public var translation: Vector2,
+             projection : Vector2;
   public function new() {
     collision = 1;
     will_collide = 0;
@@ -16,7 +16,7 @@ class CollisionInfo {
     collision = c;
     will_collide = 0;
   }
-  public function new(v:Vector, c:Bool, wc:Bool) {
+  public function new(v:Vector2, c:Bool, wc:Bool) {
     collision = c;
     will_collide = wc;
     translation = v;

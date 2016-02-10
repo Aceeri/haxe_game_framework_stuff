@@ -9,9 +9,13 @@ import openfl.events.MouseEvent;
 import openfl.Vector;
 
 class UserInterface extends Sprite {
-  public var children: Vector<UserInterface>;
+  public var children: Vector<UserInterface> = [];
 
-  private var _shape: Shape;
+  private var shape: Shape;
+  private var prev_size: Point;
+  private var prev_color: Int;
+  private var prev_alpha: Float;
+
   public var background_color: Int;
   public var background_alpha: Float;
   public var image: Bitmap;
@@ -21,23 +25,25 @@ class UserInterface extends Sprite {
   public function new() {
     super();
 
-    children = [];
-
     background_color = 0xFFFFFF;
     background_alpha = 1.0;
     size = new Point(100, 100);
     resizable = false;
 
-    _shape = new Shape();
-    addChild(_shape);
+    shape = new Shape();
+    addChild(shape);
   }
 
   public function update(delta: Float) {
-    scrollRect = new Rectangle(0, 0, size.x, size.y);
-    _shape.graphics.clear();
-    _shape.graphics.beginFill(background_color, background_alpha);
-    _shape.graphics.drawRect(0, 0, size.x, size.y);
-    _shape.graphics.endFill();
+
+    if (size != prev_size || background_color != prev_color || background_alpha != prev_alpha) {
+      scrollRect = new Rectangle(0, 0, size.x, size.y);
+      shape.graphics.clear();
+      shape.graphics.beginFill(background_color, background_alpha);
+      shape.graphics.drawRect(0, 0, size.x, size.y);
+      shape.graphics.endFill();
+    }
+    
   }
 
   public function add(ui: UserInterface) {

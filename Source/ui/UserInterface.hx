@@ -36,14 +36,15 @@ class UserInterface extends Sprite {
 
   public function update(delta: Float) {
 
-    if (size != prev_size || background_color != prev_color || background_alpha != prev_alpha) {
+    if (size != prev_size || background_color != prev_color ||
+                             background_alpha != prev_alpha) {
       scrollRect = new Rectangle(0, 0, size.x, size.y);
       shape.graphics.clear();
       shape.graphics.beginFill(background_color, background_alpha);
       shape.graphics.drawRect(0, 0, size.x, size.y);
       shape.graphics.endFill();
     }
-    
+
   }
 
   public function add(ui: UserInterface) {

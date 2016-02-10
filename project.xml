@@ -5,5 +5,6 @@
 	<source path="Source" />
 	<haxelib name="openfl" />
 	<assets path="Assets" rename="assets" />
-	<window background="#DADADA" width="800" height="600" resizable="false" vsync="false" fps="300" />
+	<window background="#DADADA" width="800" height="600" resizable="false"
+          vsync="false" fps="300" />
 </project>

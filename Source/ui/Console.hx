@@ -47,7 +47,8 @@ class Console extends UserInterface {
 
     if (text[0] != null && text[0] == msg) {
       count[0]++;
-      lines[0].htmlText = '<font color="#00FFFF">[' + count[0] + ']</font><font color="' + color + '"> ' + text[0] + '</font>';
+      lines[0].htmlText = '<font color="#00FFFF">[' + count[0] +
+            ']</font><font color="' + color + '"> ' + text[0] + '</font>';
     } else {
       var new_line = new TextField();
       new_line.antiAliasType = "advanced";
@@ -75,7 +76,8 @@ class Console extends UserInterface {
     super.update(delta);
 
     for (index in 0...lines.length) {
-      lines[index].y = (-format.size * separation * index) + size.y - format.size - bounds + scroll;
+      lines[index].y = (-format.size * separation * index) + size.y -
+                         format.size - bounds + scroll;
     }
   }
 
@@ -96,7 +98,8 @@ class Console extends UserInterface {
 
     if (scroll < 0.0 || total_y <= size.y) {
       scroll = 0.0;
-    } else if (scroll > lines.length * format.size * separation + bounds - size.y) {
+    } else if (scroll > lines.length * format.size * separation + bounds -
+               size.y) {
       scroll = lines.length * format.size * separation + bounds - size.y;
     }
   }

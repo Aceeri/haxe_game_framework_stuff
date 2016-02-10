@@ -26,13 +26,13 @@ class Main extends Sprite {
 
     #if js
       haxe.Log.trace = function(v: Dynamic, ?i):Void {
-        var msg = if (i != null) i.fileName + ":" + i.lineNumber + ": " + v else v;
+        var msg = (i != null) ? i.fileName + ":" + i.lineNumber + ": " + v : v;
         console.log(msg);
         untyped __js__("console").log(msg);
       }
     #else
       haxe.Log.trace = function(v: Dynamic, ?i):Void {
-        var msg = if (i != null) i.fileName + ":" + i.lineNumber + ": " + v else v;
+        var msg = (i != null) ? i.fileName + ":" + i.lineNumber + ": " + v : v;
         console.log(msg);
       }
     #end

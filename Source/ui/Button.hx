@@ -1,45 +1,48 @@
 package ui;
 
 import ash.core.Entity;
-
 import openfl.events.MouseEvent;
+import openfl.display.Shape;
+import ui.UserInterface;
+import openfl.Vector;
+
+enum ButtonState {
+  Unhighlight;
+  Highlight;
+  Clicked;
+}
 
 class Button extends UserInterface {
   // private:
-  private var state: State;
-  private static colour: Vector<int>;
-  private static shapes: Vector<Shape>;
+  private var state: ButtonState;
+  private static var colour: Vector<Int>;
+  private static var shapes: Vector<Shape>;
+  private function activate_button() : Void {}
 
   // public:
-  enum State {
-      unhighlight;
-      highlight;
-      clicked;
-  };
-
-  private function activate_button() : Void;
-
   public function new() {
     // -- static init --
     if ( colour == null ) {
       colour = [0x5A607A, 0x506030, 0x500000];
-      addEventListener(MouseEvent.CLICK,
+      addEventListener(MouseEvent.CLICK, update_button);
+      addEventListener(MouseEvent.MOUSE_OUT, update_button);
+      addEventListener(MouseEvent.MOUSE_OVER, update_button);
     }
     // -- constructor --
-    set_state(State.unhighlight);
+    set_state(ButtonState.Unhighlight);
     super();
   }
 
-  public function set_state(s:State) : Void {
+  public function set_state(s:ButtonState) : Void {
     state = s;
 
     graphics.clear();
-    graphics.beginFill( colour[int(s)] );
+    graphics.beginFill( colour[s.getIndex()] );
     graphics.drawRect(0, 0, width, height);
     graphics.endFill();
   }
 
-  public function ret_state() : State { return state; }
+  public function ret_state() : ButtonState { return state; }
 
   public override function update(delta: Float) {
     super.update(delta);
@@ -54,21 +57,15 @@ class Button extends UserInterface {
       activate_button();
     if ( !pressed_t ) // no longer clicking on button, note above will fall
       pressed = false; // into this so order of if-statements matter.*/
-
   }
 
   public function update_button(event:MouseEvent) {
     switch ( event.type ) {
       case "click":
-        set_state(State.clicked);
+        set_state(ButtonState.Clicked);
         activate_button();
-      break;
-      case "mouseOut":
-        set_state(State.unhighlight);
-      break;
-      case "mouseOver":
-        set_state(State.highlight);
-      break;
+      case "mouseOut":  set_state(ButtonState.Unhighlight);
+      case "mouseOver": set_state(ButtonState.Highlight  );
     }
   }
 }
